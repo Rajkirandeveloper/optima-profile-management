@@ -1,0 +1,128 @@
+
+# API Documentation For This Profile Management Project by @RajKiran Kelangi
+
+## Overview
+
+This API provides endpoints for user authentication, profile management, and profile image handling in a React application. The backend is built using Node.js, Express, and MongoDB, and it uses JWT for authentication.
+
+## Base URL      `http://localhost:5000/api`
+
+## Authentication Endpoints
+
+### 1. Register User
+
+- **Endpoint:** `/auth/register`
+- **Method:** `POST`
+- **Description:** Registers a new user.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "userPassword"
+  }
+  ```
+- **Response:**
+  - **201 Created:** User registered successfully.
+  - **400 Bad Request:** Validation error (e.g., email already in use).
+  
+### 2. Login User
+
+- **Endpoint:** `/auth/login`
+- **Method:** `POST`
+- **Description:** Logs in an existing user.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "userPassword"
+  }
+  ```
+- **Response:**
+  - **200 OK:** Returns JWT token.
+  - **401 Unauthorized:** Invalid credentials.
+
+## Profile Endpoints
+
+### 3. Get User Profile
+
+- **Endpoint:** `/profile`
+- **Method:** `GET`
+- **Description:** Retrieves the profile information of the authenticated user.
+- **Headers:**
+  - **Authorization:** `Bearer <JWT_TOKEN>`
+- **Response:**
+  - **200 OK:** Returns user profile information.
+  - **401 Unauthorized:** No token or invalid token provided.
+
+### 4. Update User Profile
+
+- **Endpoint:** `/profile`
+- **Method:** `PUT`
+- **Description:** Updates the profile information of the authenticated user.
+- **Headers:**
+  - **Authorization:** `Bearer <JWT_TOKEN>`
+- **Request Body:**
+  ```json
+  {
+    "name": "New Name",
+    "mobileNumber": "1234567890",
+    "city": "New City",
+    "profileImage": "https://example.com/profile.jpg"
+  }
+  ```
+- **Response:**
+  - **200 OK:** Profile updated successfully.
+  - **400 Bad Request:** Validation error.
+  - **401 Unauthorized:** No token or invalid token provided.
+
+## Error Handling
+
+All error responses will return a JSON object with the following structure:
+
+```json
+{
+  "error": "Error message"
+}
+```
+
+## Authentication
+
+All protected endpoints require an `Authorization` header with a Bearer token.
+
+Example:
+
+```http
+Authorization: Bearer <JWT_TOKEN>
+```
+
+## Example Usage
+
+### Register User
+
+
+URL POST http://localhost:5000/api/auth/register 
+Headers  "Content-Type: application/json" 
+RequestBody '{"email":"user@example.com","password":"userPassword"}'
+
+
+### Login User
+
+
+URL POST http://localhost:5000/api/auth/login 
+Headers "Content-Type: application/json" 
+RequestBody '{"email":"user@example.com","password":"userPassword"}'
+
+
+### Get Profile
+
+
+URL     GET http://localhost:5000/api/profile 
+Headers "Authorization: Bearer <JWT_TOKEN>"
+
+### Update Profile
+
+
+  URL   PUT http://localhost:5000/api/profile 
+  Headers  "Authorization: Bearer <JWT_TOKEN>" 
+            "Content-Type: application/json" 
+  Req Body '{"name":"New Name","mobileNumber":"1234567890","city":"New City","profileImage":"https://example.com/profile.jpg"}'
